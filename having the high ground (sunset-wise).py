@@ -94,7 +94,7 @@ def sunset_length(loc_lat, loc_lng, e_h, day, x = np.linspace(0, 26, num=26*3600
     loc_afternoon = loc_times[loc_times.index > 12]
     extra_deg = height_sunrise_ext(loc_lat, e_h)*180/np.pi
     loc_sunset_ = loc_afternoon[loc_afternoon["Sol. Alt. Angle"] < 8/15]
-    loc_sunset = loc_sunset_[loc_sunset_['Sol. Alt. Angle'] > -8/15 - extra_deg]
+    loc_sunset = loc_sunset_[loc_sunset_['Sol. Alt. Angle'] >  - extra_deg]
     if (loc_lat, loc_lng) == (lyb_lat, lyb_lng) and e_h == 518:
         global g_out
         g_out = loc_sunset
@@ -107,12 +107,14 @@ def sunset_length(loc_lat, loc_lng, e_h, day, x = np.linspace(0, 26, num=26*3600
     return len(loc_sunset), extra_deg, sol_rel_vel(loc_lat)
 
 #sanity check 1: are we getting reasonable sunset lengths?
-#this is almost exactly 55 minutes, which is Munroe's calculation for the length
+#this is a little longer than, which is Munroe's calculation for the length
 #of a sunset in Longyearbyen. Because of this, I think he did a similar 
-#calculation.
-print(sunset_length(lyb_lat, lyb_lng, 0, 236, x = np.linspace(0, 25,num=25*3600)))
+#calculation. i mean he accounted for refraction and i didn't so maybe that's why.
+#he could have also used a different value for the sun's angular diameter so
+#idk. maybe i fucked up somewhere else.
+print(sunset_length(lyb_lat, lyb_lng, 0, 233, x = np.linspace(0, 25,num=25*3600)))
 #length of sunset if you drive up to the observatory at Svalbard
-print(sunset_length(lyb_lat, lyb_lng, 518, 236,  x = np.linspace(0, 27,num=27*3600)))
+print(sunset_length(lyb_lat, lyb_lng, 518, 235,  x = np.linspace(0, 27,num=27*3600)))
 #length of a sunset if you can change your elevation by 2000m
 print(sunset_length(trm_lat, trm_lng, 2000, 210))
 #sanity check 2: are we seeing reasonable changes in day length from elevation
@@ -121,9 +123,8 @@ print(sunset_length(trm_lat, trm_lng, 2000, 210))
 #so 80 floors up should be about 300 metres high
 print(sunset_length(dub_lat, dub_lng, 0, 210))
 #the change recorded here is about 2 and a half minutes longer, meaning
-#the sunset is about 2 and a half minutes later at floor 80 than the bottom.
-#this is a bit more than the 2 minutes which the fatwa said you should delay
-#breaking the ramdan fast 80 floros up, but not **that** much more.
+#the sunset is about 1 and a half minutes later at floor 80 than the bottom.
+#this is a bit less than the 2 minutes which the fatwa said you should delay
+#breaking the ramdan fast 80 floors up, but not **that** much more. right 
+#ballpark, y'know?
 print(sunset_length(dub_lat, dub_lng, 300, 210))
-
-#plt.show()
