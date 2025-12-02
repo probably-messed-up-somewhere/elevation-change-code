@@ -112,7 +112,7 @@ def sunset_length(loc_lat, loc_lng, e_h, day, x = np.linspace(0, 26, num=26*3600
 #calculation.
 print(sunset_length(lyb_lat, lyb_lng, 0, 236, x = np.linspace(0, 25,num=25*3600)))
 #length of sunset if you drive up to the observatory at Svalbard
-print(sunset_length(lyb_lat, lyb_lng, 518, 236))
+print(sunset_length(lyb_lat, lyb_lng, 518, 236,  x = np.linspace(0, 27,num=27*3600)))
 #length of a sunset if you can change your elevation by 2000m
 print(sunset_length(trm_lat, trm_lng, 2000, 210))
 #sanity check 2: are we seeing reasonable changes in day length from elevation
